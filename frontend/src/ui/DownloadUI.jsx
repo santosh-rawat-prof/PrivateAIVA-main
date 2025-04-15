@@ -39,7 +39,7 @@ const DownloadAttendanceReport = () => {
   return (
     <button
       onClick={handleDownload}
-      className="px-4 py-2 bg-[#008FFB] text-white rounded cursor-pointer"
+      className="px-4 mt-4 py-2 bg-[#008FFB] text-sm text-white rounded cursor-pointer"
     >
       Download Today's Attendance Report
     </button>

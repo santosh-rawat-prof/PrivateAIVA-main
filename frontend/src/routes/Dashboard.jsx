@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 import { faSun, faMoon } from "@fortawesome/free-solid-svg-icons";
 import { useAuth } from "../contexts/AuthContext";
 import DownloadAttendanceReport from "../ui/DownloadUI";
+import Clock from "../ui/Clock";
 
 export default function Dashboard() {
     const [time, setTime] = useState(new Date());
@@ -30,7 +31,7 @@ export default function Dashboard() {
     useEffect(() => {
         const getTrainees = async () => {
             const res = await fetch(
-                "http://172.20.202.27:5000/api/admin/getTrainees",
+                "http://localhost:5000/api/admin/getTrainees",
                 {
                     method: "GET",
                     headers: {
@@ -94,22 +95,11 @@ export default function Dashboard() {
                     </div>
                 </header>
                 <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                    <div className="bg-gray-900 p-4 rounded-lg text-white text-lg">
-                        <div className="flex items-center gap-2">
-                            <FontAwesomeIcon
-                                icon={icon}
-                                className="text-yellow-400 text-4xl"
-                            />
-                            <span>{formattedTime}</span>
-                        </div>
-                        <div className="text-xs text-gray-400 mt-2">
-                            Realtime Insight
-                        </div>
-                        <div className="mt-2">Today: {formattedDate}</div>
-                        <button className="mt-4 bg-[#008FFB] text-white text-sm px-4 py-2 rounded-md">
-                            <DownloadAttendanceReport />
-                        </button>
+                    <div>
+                        <Clock><DownloadAttendanceReport /></Clock>
+
                     </div>
+
                     <Card
                         title="Total Users"
                         value={value}
