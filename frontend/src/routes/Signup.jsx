@@ -58,7 +58,7 @@ function Signup() {
         };
         try {
             const res = await fetch(
-                "http://172.20.202.27:5000/api/trainee/register",
+                "http://localhost:5000/api/trainee/register",
                 {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },

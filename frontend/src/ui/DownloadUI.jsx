@@ -12,7 +12,7 @@ const DownloadAttendanceReport = () => {
     }
     try {
       const response = await axios.get(
-        `http://172.20.202.27:5000/api/admin/exportAttendance?date=${today}`,
+        `http://localhost:5000/api/admin/exportAttendance?date=${today}`,
         {
           responseType: "blob",
           headers: {

@@ -41,7 +41,7 @@ async function seedAdmin() {
 async function getToken() {
     console.log("Requesting token from /api/admin/login...");
     try {
-        const response = await fetch('http://172.20.202.27:5000/api/admin/login', {
+        const response = await fetch('http://localhost:5000/api/admin/login', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -75,7 +75,7 @@ async function getToken() {
 async function configAttendance(token) {
     console.log("Configuring attendance settings...\n");
     try {
-        const response = await fetch('http://172.20.202.27:5000/api/admin/configAttendance', {
+        const response = await fetch('http://localhost:5000/api/admin/configAttendance', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
