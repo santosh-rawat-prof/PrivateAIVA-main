@@ -14,6 +14,7 @@ function Home() {
     name: "",
     checkInTime: null,
     alreadyMarked: false,
+    mode: "checkin"
   });
 
   const [currentTime, setCurrentTime] = useState(new Date());
@@ -36,12 +37,14 @@ function Home() {
         name: data.name,
         checkInTime: data.checkInTime || new Date().toLocaleTimeString(),
         alreadyMarked: data.alreadyMarked || false,
+        mode: data.mode
       });
     } else {
       setUserData({
         name: "",
         checkInTime: null,
         alreadyMarked: false,
+        mode: "checkin"
       });
     }
   };
@@ -76,10 +79,10 @@ function Home() {
                     : faTimesCircle
                 }
                 className={`mr-2 ${userData.alreadyMarked
-                    ? "text-green-400"
-                    : userData.name
-                      ? "text-yellow-400"
-                      : "text-red-400"
+                  ? "text-green-400"
+                  : userData.name
+                    ? "text-yellow-400"
+                    : "text-red-400"
                   }`}
               />
               <span>
@@ -97,7 +100,7 @@ function Home() {
                 icon={faClock}
                 className="text-yellow-400 mr-2"
               />
-              <span>Check-in: {userData.checkInTime || "—"}</span>
+              <span>{userData.mode == "checkin" ? "Check-in:" : "Check-out:"} {userData.checkInTime || "—"}</span>
             </div>
 
             {/* <div className="flex items-center">

@@ -81,7 +81,7 @@ const WebcamCapture = ({ onUserDetected }) => {
         const descriptor = Array.from(detection.descriptor);
 
         try {
-            const res = await fetch("http://localhost:5000/api/trainee/login", {
+            const res = await fetch("http://172.20.202.27:5000/api/trainee/login", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
@@ -101,6 +101,7 @@ const WebcamCapture = ({ onUserDetected }) => {
                         hour: "2-digit",
                         minute: "2-digit",
                     }),
+                    mode: data.mode,
                     alreadyMarked: data.alreadyMarked,
                 });
             } else {

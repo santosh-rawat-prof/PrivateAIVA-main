@@ -15,7 +15,7 @@ function Login() {
 
         try {
             const response = await fetch(
-                "http://localhost:5000/api/admin/login",
+                "http://172.20.202.27:5000/api/admin/login",
                 {
                     method: "POST",
                     headers: {

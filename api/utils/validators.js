@@ -37,7 +37,9 @@ exports.validateTraineeLogin = [
 
 exports.validateAdminLogin = [
     check("name").notEmpty().withMessage("name is required"),
-    check("password").notEmpty().withMessage("password is required"),
+    check("password").notEmpty().withMessage("password is required")
+    // console.log("Hit from validators");
+    
 
 ];
 

@@ -12,7 +12,7 @@ const Admin = mongoose.model("Admin", adminSchema);
 
 const seedAdmin = async () => {
     try {
-        await mongoose.connect("mongodb://0.0.0.0:27017/AIVA__TEST__DB");
+        await mongoose.connect("mongodb://0.0.0.0:27017/AIVA__CONFERENCE__DB");
 
         const hashedPassword = await bcrypt.hash("admin", 12);
 

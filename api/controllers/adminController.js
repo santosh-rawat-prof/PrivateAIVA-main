@@ -11,8 +11,10 @@ const Trainee = require("../models/Trainee");
 exports.adminLogin = async (req, res, next) => {
     try {
         const { name, password } = req.body;
-        const admin = await Admin.findOne({ name });
+        console.log(name, password, "***********");
 
+        const admin = await Admin.findOne({ name });
+        console.log(admin, " from controllers");
         if (!admin) return res.status(400).json({ msg: "Invalid credentials" });
 
         const isMatch = await bcrypt.compare(password, admin.password);

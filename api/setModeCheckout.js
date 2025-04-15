@@ -1,42 +1,42 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
 
-const adminSchema = new mongoose.Schema({
-    name: { type: String, required: true, unique: true },
-    password: { type: String, required: true },
-    role: { type: String, required: true, default: "admin" }
-});
+// const adminSchema = new mongoose.Schema({
+//     name: { type: String, required: true, unique: true },
+//     password: { type: String, required: true },
+//     role: { type: String, required: true, default: "admin" }
+// });
 
-const Admin = mongoose.model("Admin", adminSchema);
+// const Admin = mongoose.model("Admin", adminSchema);
 
-const DB_URI = "mongodb://0.0.0.0:27017/AIVA__CONFERENCE__DB";
+// const DB_URI = "mongodb://0.0.0.0:27017/AIVA__CONFERENCE__DB";
 
-async function seedAdmin() {
-    console.log("Starting admin seeding...");
-    try {
-        await mongoose.connect(DB_URI);
-        console.log("Connected to MongoDB.");
+// async function seedAdmin() {
+//     console.log("Starting admin seeding...");
+//     try {
+//         await mongoose.connect(DB_URI);
+//         console.log("Connected to MongoDB.");
 
-        const existing = await Admin.findOne({ name: "admin1" });
-        if (existing) {
-            console.log("Admin already exists. Skipping seeding.");
-            return;
-        }
+//         const existing = await Admin.findOne({ name: "admin1" });
+//         if (existing) {
+//             console.log("Admin already exists. Skipping seeding.");
+//             return;
+//         }
 
-        const hashedPassword = await bcrypt.hash("admin1", 12);
+//         const hashedPassword = await bcrypt.hash("admin1", 12);
 
-        const newAdmin = new Admin({
-            name: "admin1",
-            password: hashedPassword,
-        });
+//         const newAdmin = new Admin({
+//             name: "admin1",
+//             password: hashedPassword,
+//         });
 
-        await newAdmin.save();
-        console.log("Admin seeded successfully.\n");
-    } catch (err) {
-        console.error("Failed to seed admin. Error:", err.message);
-        throw err;
-    }
-}
+//         await newAdmin.save();
+//         console.log("Admin seeded successfully.\n");
+//     } catch (err) {
+//         console.error("Failed to seed admin. Error:", err.message);
+//         throw err;
+//     }
+// }
 
 async function getToken() {
     console.log("Requesting token from /api/admin/login...");
@@ -82,7 +82,7 @@ async function configAttendance(token) {
                 'Authorization': `Bearer ${token}`
             },
             body: JSON.stringify({
-                mode: "checkin",
+                mode: "checkout",
                 startTime: "09:00",
                 endTime: "18:00",
                 cutoffTime: "10:00"
@@ -106,7 +106,7 @@ async function configAttendance(token) {
 async function setup() {
     console.log("Setup started...\n");
     try {
-        await seedAdmin();
+        // await seedAdmin();
         const token = await getToken();
         await configAttendance(token);
         console.log("\nSetup completed successfully!");

@@ -30,7 +30,7 @@ export default function Dashboard() {
     useEffect(() => {
         const getTrainees = async () => {
             const res = await fetch(
-                "http://localhost:5000/api/admin/getTrainees",
+                "http://172.20.202.27:5000/api/admin/getTrainees",
                 {
                     method: "GET",
                     headers: {

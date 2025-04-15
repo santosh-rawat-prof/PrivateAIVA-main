@@ -96,7 +96,6 @@ exports.traineeFaceLogin = async (req, res, next) => {
 
         const token = jwt.sign(user, process.env.JWT_SECRET, { expiresIn: "1h" });
 
-        // Fetch the latest config created before or at current time
         const config = await AttendanceConfig.findOne({
             createdAt: { $lte: new Date() }
         }).sort({ createdAt: -1 });
