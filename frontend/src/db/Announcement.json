@@ -1,0 +1,27 @@
+[
+  {
+    "id": 1,
+    "title": "Welcome to the Training Program!",
+    "message": "We're excited to have you on board. Get ready to learn and grow with us. Don't forget to check your schedules!"
+  },
+  {
+    "id": 2,
+    "title": "Upcoming Workshop: Advanced React",
+    "message": "Join us for an in-depth workshop on Advanced React concepts this Friday at 3 PM. Don't miss out!"
+  },
+  {
+    "id": 3,
+    "title": "Reminder: Submit Your Assignments",
+    "message": "Just a friendly reminder to submit your assignments before the deadline. Late submissions will not be accepted."
+  },
+  {
+    "id": 4,
+    "title": "Team Building Activity",
+    "message": "We have a fun team-building activity planned for next week. Stay tuned for more details!"
+  },
+  {
+    "id": 5,
+    "title": "Feedback Survey",
+    "message": "Please take a few minutes to fill out the feedback survey for the last training session. Your feedback helps us improve."
+  }
+]

@@ -1,0 +1,32 @@
+[
+  {
+    "assignmentName": "Build a Web Scraper",
+    "deadline": "2025-04-20",
+    "language": "Python",
+    "addedBy": "John Doe"
+  },
+  {
+    "assignmentName": "Create a REST API",
+    "deadline": "2025-04-15",
+    "language": "Java",
+    "addedBy": "Jane Smith"
+  },
+  {
+    "assignmentName": "Machine Learning Model for Image Classification",
+    "deadline": "2025-04-30",
+    "language": "AI/ML",
+    "addedBy": "Alice Johnson"
+  },
+  {
+    "assignmentName": "Data Structures and Algorithms Practice",
+    "deadline": "2025-04-18",
+    "language": "C++",
+    "addedBy": "David Lee"
+  },
+  {
+    "assignmentName": "Build a React App",
+    "deadline": "2025-04-25",
+    "language": "JavaScript",
+    "addedBy": "Emily White"
+  }
+]
