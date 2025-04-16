@@ -25,6 +25,21 @@ exports.validateTraineeRegistration = [
         .withMessage("Each face descriptor must be an array of 128 numbers")
 ];
 
+exports.validateTraineeUpdate = [
+    check("empId")
+        .trim()
+        .notEmpty().isNumeric()
+        .withMessage("empId is required"),
+    check("faceDescriptors")
+        .isArray({ min: 1 })
+        .withMessage("At least one face descriptor is required"),
+    check("faceDescriptors.*")
+        .isArray({ min: 128, max: 128 })
+        .withMessage("Each face descriptor must be an array of 128 numbers")
+];
+
+
+
 exports.validateTraineeLogin = [
     check("faceDescriptors")
         .isArray({ min: 1 })
@@ -35,10 +50,11 @@ exports.validateTraineeLogin = [
 ];
 
 
+
+
 exports.validateAdminLogin = [
     check("name").notEmpty().withMessage("name is required"),
     check("password").notEmpty().withMessage("password is required")
-    // console.log("Hit from validators");
     
 
 ];

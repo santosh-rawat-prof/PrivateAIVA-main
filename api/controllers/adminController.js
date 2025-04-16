@@ -11,10 +11,8 @@ const Trainee = require("../models/Trainee");
 exports.adminLogin = async (req, res, next) => {
     try {
         const { name, password } = req.body;
-        console.log(name, password, "***********");
 
         const admin = await Admin.findOne({ name });
-        console.log(admin, " from controllers");
         if (!admin) return res.status(400).json({ msg: "Invalid credentials" });
 
         const isMatch = await bcrypt.compare(password, admin.password);
@@ -136,14 +134,11 @@ exports.exportAttendanceToExcel = async (req, res, next) => {
             return res.status(400).json({ msg: "Invalid date format. Please use YYYY-MM-DD." });
         }
 
-        // Normalize to start of day (00:00:00)
         const exactDate = moment(date).startOf("day").toDate();
 
-        // Fetch all trainees and attendance records for that exact date
         const trainees = await Trainee.find({});
         const attendanceRecords = await Attendance.find({ date: exactDate }).populate("trainee", "name empId");
 
-        // Create a Map for faster lookup (trainee ID => attendance record)
         const attendanceMap = new Map();
         attendanceRecords.forEach(record => {
             if (record.trainee) {
@@ -151,11 +146,9 @@ exports.exportAttendanceToExcel = async (req, res, next) => {
             }
         });
 
-        // Prepare rows for Excel export
         const dataToExport = trainees.map(trainee => {
             const attendance = attendanceMap.get(trainee._id.toString());
 
-            // Create the record for each trainee
             return {
                 traineeName: trainee.name,
                 empId: trainee.empId,
@@ -169,7 +162,6 @@ exports.exportAttendanceToExcel = async (req, res, next) => {
             };
         });
 
-        // Create Excel file
         const workbook = new ExcelJS.Workbook();
         const worksheet = workbook.addWorksheet("Attendance Report");
 
@@ -182,12 +174,9 @@ exports.exportAttendanceToExcel = async (req, res, next) => {
         ];
 
         worksheet.addRows(dataToExport);
-
-        // Set headers for file download
         res.setHeader("Content-Disposition", "attachment; filename=attendance_report.xlsx");
         res.setHeader("Content-Type", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
 
-        // Write to response and send the file
         await workbook.xlsx.write(res);
         return res.status(200).end();
 

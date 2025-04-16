@@ -11,6 +11,34 @@ const Trainee = require("../models/Trainee");
 
 const FACE_MATCH_THRESHOLD = 0.475;
 
+
+exports.updateTraineeFaceDescriptors = async (req, res, next) => {
+    try {
+        const { empId, faceDescriptors } = req.body;
+
+        if (!empId || !Array.isArray(faceDescriptors) || faceDescriptors.length === 0) {
+            return res.status(400).json({ msg: "empId and faceDescriptors are required" });
+        }
+
+        const trainee = await Trainee.findOne({ empId });
+        if (!trainee) {
+            return res.status(404).json({ msg: "Trainee not found" });
+        }
+
+        const encryptedDescriptors = faceDescriptors.map(desc => encryptDescriptor(desc));
+        trainee.faceDescriptors = encryptedDescriptors;
+
+        await trainee.save();
+        return res.status(200).json({ msg: "Face descriptors updated successfully" });
+    } catch (err) {
+        next(err);
+    }
+};
+
+
+
+
+
 exports.traineeRegister = async (req, res, next) => {
     try {
         const { name, empId, batch, subBatch, faceDescriptors } = req.body;

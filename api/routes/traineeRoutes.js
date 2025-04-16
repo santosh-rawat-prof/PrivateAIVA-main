@@ -1,8 +1,8 @@
 const express = require("express");
 const router = express.Router();
 const { validationResult } = require("express-validator");
-const { traineeRegister, traineeFaceLogin } = require("../controllers/traineeController");
-const { validateTraineeRegistration, validateTraineeLogin } = require("../utils/validators");
+const { traineeRegister, traineeFaceLogin, updateTraineeFaceDescriptors } = require("../controllers/traineeController");
+const { validateTraineeRegistration, validateTraineeLogin, validateTraineeUpdate } = require("../utils/validators");
 
 const runValidation = (req, res, next) => {
     const errors = validationResult(req);
@@ -13,6 +13,7 @@ const runValidation = (req, res, next) => {
 };
 
 router.post("/register", validateTraineeRegistration, runValidation, traineeRegister);
+router.post("/update", validateTraineeUpdate, runValidation, updateTraineeFaceDescriptors);
 router.post("/login", validateTraineeLogin, runValidation, traineeFaceLogin);
 // router.post("/login",  traineeFaceLogin);
 
