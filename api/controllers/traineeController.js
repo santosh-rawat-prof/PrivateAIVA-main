@@ -9,8 +9,11 @@ const Attendance = require("../models/Attendance");
 const AttendanceConfig = require("../models/AttendanceConfig");
 const Trainee = require("../models/Trainee");
 
-const FACE_MATCH_THRESHOLD = 0.475;
+const BoothAssignment = require("../models/BoothAssignment");
+const { booths } = require("../booths");
 
+const FACE_MATCH_THRESHOLD = 0.475;
+const MAX_FIRST_PART_ASSIGNMENTS = 2;
 
 exports.updateTraineeFaceDescriptors = async (req, res, next) => {
     try {
@@ -64,12 +67,9 @@ exports.traineeRegister = async (req, res, next) => {
     }
 };
 
-
-
 exports.traineeFaceLogin = async (req, res, next) => {
     try {
         const { faceDescriptors } = req.body;
-
         if (
             !faceDescriptors ||
             !Array.isArray(faceDescriptors) ||
@@ -88,15 +88,14 @@ exports.traineeFaceLogin = async (req, res, next) => {
         for (const trainee of trainees) {
             for (const encrypted of trainee.faceDescriptors) {
                 if (typeof encrypted !== "string") continue;
-
                 let storedDescriptor;
                 try {
                     storedDescriptor = decryptDescriptor(encrypted);
+                    if (!Array.isArray(storedDescriptor) || storedDescriptor.length !== 128) continue;
                 } catch (err) {
                     console.error("Decryption failed :- ", err.message);
                     continue;
                 }
-
                 distance = euclideanDistance(storedDescriptor, descriptorToMatch);
                 if (distance < FACE_MATCH_THRESHOLD) {
                     matchedTrainee = trainee;
@@ -150,51 +149,94 @@ exports.traineeFaceLogin = async (req, res, next) => {
             if (config.mode === "checkout" && !existingAttendance.checkOutTime) {
                 existingAttendance.checkOutTime = now;
                 await existingAttendance.save();
-                return res.status(200).json({
-                    msg: "Checkout time marked",
-                    mode: config.mode,
-                    token,
-                    user,
-                    alreadyMarked: true,
-                    checkOutMarked: true
-                });
+            }
+        } else {
+            const newAttendance = new Attendance({
+                trainee: matchedTrainee._id,
+                date: today,
+                status
+            });
+
+            if (config.mode === "checkin") {
+                newAttendance.checkInTime = now;
+            } else {
+                newAttendance.checkOutTime = now;
             }
 
-            return res.status(200).json({
-                msg: "Login successful, but attendance already marked for today.",
-                mode: config.mode,
-                token,
-                user,
-                alreadyMarked: true
-            });
+            await newAttendance.save();
         }
 
-        const newAttendance = new Attendance({
-            trainee: matchedTrainee._id,
-            date: today,
-            status
-        });
+        let boothAssignment = await BoothAssignment.findOne({ trainee: matchedTrainee._id });
+        let boothDetails = null;
 
-        if (config.mode === "checkin") {
-            newAttendance.checkInTime = now;
+        if (!boothAssignment) {
+            const totalAssignments = await BoothAssignment.countDocuments();
+            const currentPart = totalAssignments < MAX_FIRST_PART_ASSIGNMENTS ? 1 : 2;
+
+            const boothsForPart = booths.filter(b => b.part === currentPart);
+
+            let assigned = false;
+
+            for (const booth of boothsForPart) {
+                const assignmentsForBooth = await BoothAssignment.countDocuments({ boothName: booth.name });
+                if (assignmentsForBooth < booth.capacity) {
+                    boothAssignment = new BoothAssignment({
+                        trainee: matchedTrainee._id,
+                        boothName: booth.name,
+                        sessionPart: currentPart
+                    });
+                    await boothAssignment.save();
+                    boothDetails = {
+                        name: booth.name,
+                        project: booth.project,
+                        location: booth.location
+                    };
+                    assigned = true;
+                    break;
+                }
+            }
+
+            if (!assigned) {
+                const booth8 = booths.find(b => b.name === "Booth 8");
+                if (booth8) {
+                    boothAssignment = new BoothAssignment({
+                        trainee: matchedTrainee._id,
+                        boothName: booth8.name,
+                    });
+                    await boothAssignment.save();
+                    boothDetails = {
+                        name: booth8.name,
+                        project: booth8.project,
+                        location: booth8.location
+                    };
+                }
+            }
         } else {
-            newAttendance.checkOutTime = now;
+            const booth = booths.find(b => b.name === boothAssignment.boothName);
+            if (booth) {
+                boothDetails = {
+                    name: booth.name,
+                    project: booth.project,
+                    location: booth.location
+                };
+            }
         }
-
-        await newAttendance.save();
 
         return res.status(200).json({
             msg: `Login successful. ${config.mode === "checkin" ? "Check-in" : "Check-out"} marked.`,
             mode: config.mode,
             token,
             user,
-            alreadyMarked: false,
-            promptAttendance: false
+            alreadyMarked: existingAttendance !== null,
+            booth: boothDetails
         });
+
     } catch (err) {
         next(err);
     }
 };
+
+
 
 
 
