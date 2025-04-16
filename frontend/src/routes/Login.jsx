@@ -29,7 +29,7 @@ function Login() {
 
             if (response.ok) {
                 login(data); // update AuthContext
-                navigate("/terms"); // redirect on success
+                navigate("/dashboard"); // redirect on success
             } else {
                 setError(data.message || "Login failed");
             }

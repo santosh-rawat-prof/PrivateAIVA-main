@@ -1,0 +1,120 @@
+[ {
+        "title": "Designing for GenAI Applications",
+        "days": [
+            {
+                "day": "Day 1",
+                "schedule": [
+                    {
+                        "time": "09:05 - 09:15",
+                        "topic": "Key Note session",
+                        "speaker": ""
+                    },
+                    {
+                        "time": "09:15 - 10:30",
+                        "topic": "Current and Futuristic Ux Scenarios in GenAI; UX Patterns ; Explainability Practices for GenAI",
+                        "speaker": "Karthik"
+                    },
+                    {
+                        "time": "10:30 - 10:50",
+                        "topic": "Coffee Break",
+                        "speaker": ""
+                    },
+                    {
+                        "time": "10:50 - 11:40",
+                        "topic": "Journey Map Case Study Discussion; Customer Trust Points ; Opportunity Statement",
+                        "speaker": "All"
+                    },
+                    {
+                        "time": "11:40 - 12:30",
+                        "topic": "Content Audit",
+                        "speaker": "Karthik/Swarna"
+                    },
+                    {
+                        "time": "12:30 - 13:30",
+                        "topic": "Lunch",
+                        "speaker": ""
+                    },
+                    {
+                        "time": "13:30 - 14:30",
+                        "topic": "Ux Design for GenAI apps",
+                        "speaker": "Murthy"
+                    },
+                    {
+                        "time": "14:30 - 15:30",
+                        "topic": "Ignite Experience on Ux for genai",
+                        "speaker": "Suresh"
+                    },
+                    {
+                        "time": "15:30 - 15:50",
+                        "topic": "Tea",
+                        "speaker": ""
+                    },
+                    {
+                        "time": "15:50 - 16:45",
+                        "topic": "Testing for GenAI",
+                        "speaker": "Venkat Seshadri"
+                    }
+                ]
+            },
+            {
+                "day": "Day 2",
+                "schedule": [
+                    {
+                        "time": "09:00 - 09:30",
+                        "topic": "Embodied AI Maturity Map, LB",
+                        "speaker": "Suresh & Mural Teams"
+                    },
+                    {
+                        "time": "09:30 - 10:30",
+                        "topic": "Embodied AI Ignite Solutions",
+                        "speaker": "Suresh & Mural Teams"
+                    },
+                    {
+                        "time": "10:30 - 10:50",
+                        "topic": "Coffee Break",
+                        "speaker": ""
+                    },
+                    {
+                        "time": "10:50 - 11:40",
+                        "topic": "Agent based Modelling",
+                        "speaker": "Akshay Teams"
+                    },
+                    {
+                        "time": "11:45 - 12:30",
+                        "topic": "Ignite Walk Thru - Batch 1; Sim Hands on - Batch 2",
+                        "speaker": "Ignite"
+                    },
+                    {
+                        "time": "12:30 - 13:30",
+                        "topic": "Lunch",
+                        "speaker": ""
+                    },
+                    {
+                        "time": "13:30 - 14:15",
+                        "topic": "Sim Hands on - Batch 1; Ignite Walkthrough Batch 2",
+                        "speaker": "Ignite"
+                    },
+                    {
+                        "time": "14:30 - 15:00",
+                        "topic": "Ux Tools for Case Study",
+                        "speaker": "Murthy"
+                    },
+                    {
+                        "time": "15:00 - 16:00",
+                        "topic": "Case Study Discussion",
+                        "speaker": ""
+                    },
+                    {
+                        "time": "16:00 - 16:15",
+                        "topic": "Tea Break",
+                        "speaker": "All"
+                    },
+                    {
+                        "time": "16:15 - 16:45",
+                        "topic": "Feedback and Wrap up",
+                        "speaker": ""
+                    }
+                ]
+            }
+        ]
+    } ]

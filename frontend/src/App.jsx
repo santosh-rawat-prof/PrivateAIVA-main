@@ -23,7 +23,7 @@ function App() {
   return (
     <>
       <div className="flex bg-gray-800">
-        <SideBar />
+        {/* <SideBar /> */}
         <Outlet />
       </div>
     </>

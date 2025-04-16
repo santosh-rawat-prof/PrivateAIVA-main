@@ -86,11 +86,11 @@ export default function Dashboard() {
                         />
                         <div className="flex items-center space-x-2">
                             <span className="text-sm">Admin</span>
-                            <img
+                            {/* <img
                                 className="w-8 h-8 rounded-full"
                                 src="https://i.pravatar.cc/40"
                                 alt="Admin Avatar"
-                            />
+                            /> */}
                         </div>
                     </div>
                 </header>

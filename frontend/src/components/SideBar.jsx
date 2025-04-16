@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 export default function SideBar() {
   return (
-    <aside className="relative h-screen w-20 bg-gray-900 flex flex-col items-center py-4 space-y-6 text-white">
+    <aside className="relative h-auto w-20 bg-gray-900 flex flex-col items-center py-4 space-y-6 text-white">
       <button className="hover:text-blue-400">
         <FontAwesomeIcon icon="bell" />
       </button>

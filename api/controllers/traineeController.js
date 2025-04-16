@@ -9,7 +9,7 @@ const Attendance = require("../models/Attendance");
 const AttendanceConfig = require("../models/AttendanceConfig");
 const Trainee = require("../models/Trainee");
 
-const FACE_MATCH_THRESHOLD = 0.525;
+const FACE_MATCH_THRESHOLD = 0.475;
 
 exports.traineeRegister = async (req, res, next) => {
     try {

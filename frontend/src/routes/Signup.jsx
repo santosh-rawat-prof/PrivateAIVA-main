@@ -82,7 +82,7 @@ function Signup() {
     };
 
     return (
-        <div className="bg-gray-950 text-gray-600 min-h-screen">
+        <div className="bg-gray-950 text-gray-600 min-h-screen w-full">
             <div className="p-10">
                 <h1 className="mb-8 font-extrabold text-4xl text-white">
                     Register

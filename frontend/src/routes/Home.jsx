@@ -8,17 +8,19 @@ import {
   faTimesCircle,
   faClock,
 } from "@fortawesome/free-solid-svg-icons";
+import ZoneAllocator from "../utilities/ZoneAllocator";
 
 function Home() {
   const [userData, setUserData] = useState({
     name: "",
     checkInTime: null,
     alreadyMarked: false,
-    mode: "checkin"
+    mode: "checkin",
   });
 
   const [currentTime, setCurrentTime] = useState(new Date());
 
+  // Update the current time every second
   useEffect(() => {
     const interval = setInterval(() => setCurrentTime(new Date()), 1000);
     return () => clearInterval(interval);
@@ -30,6 +32,27 @@ function Home() {
     second: "2-digit",
   });
 
+  // 🔊 Text-to-Speech only when user is detected (non-empty name)
+  useEffect(() => {
+    if (!("speechSynthesis" in window)) return;
+
+    if (!userData.name) return; // Don’t speak if no name
+
+    const synth = window.speechSynthesis;
+
+    // Stop any ongoing speech immediately
+    synth.cancel();
+
+    const message = `Welcome ${userData.name}, to the Design for GenAI program.`;
+
+    setTimeout(() => {
+      const utterance = new SpeechSynthesisUtterance(message);
+      utterance.rate = 1.15; // Fast, natural speech
+      utterance.pitch = 1;
+      synth.speak(utterance);
+    }, 0);
+  }, [userData.name]);
+
   const handleUserDetected = (data) => {
     if (data) {
       console.log(data);
@@ -37,14 +60,14 @@ function Home() {
         name: data.name,
         checkInTime: data.checkInTime || new Date().toLocaleTimeString(),
         alreadyMarked: data.alreadyMarked || false,
-        mode: data.mode
+        mode: data.mode,
       });
     } else {
       setUserData({
         name: "",
         checkInTime: null,
         alreadyMarked: false,
-        mode: "checkin"
+        mode: "checkin",
       });
     }
   };
@@ -55,10 +78,12 @@ function Home() {
         <h1 className="text-center font-bold text-2xl mb-10">
           Ask Ignite AIVA
         </h1>
+
         <div className="flex justify-center items-center w-full">
           <div className="relative w-1/3 flex justify-center">
             <WebcamCapture onUserDetected={handleUserDetected} />
           </div>
+          {/* <ZoneAllocator /> */}
           <div className="bg-gray-900 text-slate-200 p-6 rounded-xl w-80 shadow-lg grid">
             <h2 className="text-white text-xl font-semibold mb-4">
               User Details
@@ -100,9 +125,13 @@ function Home() {
                 icon={faClock}
                 className="text-yellow-400 mr-2"
               />
-              <span>{userData.mode == "checkin" ? "Check-in:" : "Check-out:"} {userData.checkInTime || "—"}</span>
+              <span>
+                {userData.mode === "checkin" ? "Check-in:" : "Check-out:"}{" "}
+                {userData.checkInTime || "—"}
+              </span>
             </div>
 
+            {/* Optional: Show current time */}
             {/* <div className="flex items-center">
               <FontAwesomeIcon icon={faClock} className="text-blue-400 mr-2" />
               <span>Current: {formattedCurrentTime}</span>

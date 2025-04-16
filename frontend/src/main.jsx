@@ -13,6 +13,7 @@ import PostLoginSideBar from "./components/PostLoginSideBar.jsx";
 import { AuthProvider } from "./contexts/AuthContext.jsx";
 import Dashboard from "./routes/Dashboard.jsx";
 import Home from "./routes/Home.jsx";
+import ConferenceHome from "./routes/ConferenceHome.jsx";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
@@ -20,11 +21,11 @@ createRoot(document.getElementById("root")).render(
       <BrowserRouter>
         <Routes>
           <Route element={<App />}>
-            <Route path="/" element={<Home />} />
+            <Route path="/" element={<ConferenceHome />} />
             <Route path="/login" element={<Login />} />
             <Route path="/assignments" element={<Assignments />} />
             <Route element={<PrivateRoutes />}>
-              <Route path="/signup" element={<Signup />} />
+              {/* <Route path="/signup" element={<Signup />} /> */}
               <Route path="/users" element={<Admin />} />
               <Route path="/terms" element={<TermsAndConditions />} />
               <Route path="/dashboard" element={<Dashboard />} />

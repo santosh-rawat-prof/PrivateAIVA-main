@@ -43,8 +43,7 @@ const WebcamCapture = ({ onUserDetected }) => {
             } else {
                 missCountRef.current += 1;
 
-                if (missCountRef.current >= 3) {
-                    // needs 3 failed detections
+                if (missCountRef.current >= 0.5) {
                     if (facePresent) {
                         setFacePresent(false);
                         setStatus("Face left. Waiting...");
@@ -82,6 +81,7 @@ const WebcamCapture = ({ onUserDetected }) => {
                         minute: "2-digit",
                     }),
                     alreadyMarked: data.alreadyMarked,
+                    mode: data.mode
                 });
             } else {
                 setStatus(data.error || "❌ Face not recognized.");
@@ -100,13 +100,13 @@ const WebcamCapture = ({ onUserDetected }) => {
 
     return (
         <div className="flex flex-col items-center">
-            <div className="relative w-80 h-60 border-2 border-gray-300 rounded-lg overflow-hidden">
+            <div className="relative w-auto h-auto border-2 border-gray-300 rounded-lg overflow-hidden">
                 <Webcam
                     audio={false}
                     ref={webcamRef}
                     screenshotFormat="image/jpeg"
                     videoConstraints={{ facingMode: "user" }}
-                    className="w-full h-full"
+                    className=""
                 />
             </div>
 
