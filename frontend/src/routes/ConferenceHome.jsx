@@ -25,6 +25,7 @@ function ConferenceHome() {
     checkInTime: null,
     alreadyMarked: false,
     mode: "checkin",
+    booth: "",
   });
 
   const [currentTime, setCurrentTime] = useState(new Date());
@@ -47,7 +48,7 @@ function ConferenceHome() {
     const synth = window.speechSynthesis;
     synth.cancel();
 
-    const message = `Welcome ${userData.name}, to the Design for GenAI program.`;
+    const message = `Welcome ${userData.name}, you are allocated to ${userData.booth.name} at ${userData.booth.location}.`;
     const utterance = new SpeechSynthesisUtterance(message);
     utterance.rate = 1.15;
     utterance.pitch = 1;
@@ -64,6 +65,7 @@ function ConferenceHome() {
         checkInTime: null,
         alreadyMarked: false,
         mode: "checkin",
+        booth: "",
       });
     }
   };
@@ -327,15 +329,15 @@ function ConferenceHome() {
                 borderRadius="1.75rem"
                 className="flex-1 text-gray-50 border-neutral-200 dark:border-slate-800" // Added mt-4 for spacing
               >
-                <h2 className="text-2xl font-bold">
+                <h2 className="text-xl font-bold">
                   Welcome{" "}
                   <span className="bg-gradient-to-r from-[#008FFB] to-blue-600 bg-clip-text text-transparent">
                     {userData.name || "User"},
                   </span>
                 </h2>
-                <h2 className="text-2xl font-bold mt-3">
+                <h2 className="text-xl font-bold mt-3">
                   {userData.name
-                    ? "to the Design for GenAI program."
+                    ? `${userData.name}, you are allocated to ${userData.booth.name} at ${userData.booth.location}.`
                     : "Please mark your attendance here!"}
                 </h2>
               </Button>
